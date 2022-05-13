@@ -19,7 +19,7 @@ def data_prep(nam, dat_directory, start_year=1965):
 
 
 def vizz(name_list, report_dir):
-    fig = plt.figure()
+    print('Start visualization...')
     fig = plt.figure(figsize=(7.2, 3.2))
     gs = GridSpec(4, 6, wspace=0.0, hspace=0.0)
 
@@ -65,5 +65,6 @@ def vizz(name_list, report_dir):
 
     fig.savefig(report_dir + r"/image_omics.pdf", dpi=350, bbox_inches="tight")
     fig.savefig(report_dir + r"/image_omics.png", dpi=350, bbox_inches="tight")
-    plt.show()
+
+    return print('Done!')
 

@@ -8,6 +8,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
 import pandas as pd
+import urllib.parse as urlp
+
 
 def make_dir():
     dt_label = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
@@ -25,12 +27,19 @@ def latest_file(dir_path, new_name):
 
 def read_terms(file_name):
     terms = pd.read_csv(file_name)
-    for cl in terms.columns:
-        terms[cl] = terms[cl].str.lower()
-    temp = {}
-    for name, gr in terms.groupby('term1'):
-        temp[name.capitalize()] = list(terms.loc[terms['term1'] == name, 'term2'].values)
-    return temp
+    terms.fillna('', inplace=True)
+    terms['term1'] = terms['term1'].str.capitalize()
+    url_pre = 'https://pubmed.ncbi.nlm.nih.gov/?term='
+    url_suf = '&sort=relevance'
+    urls = []
+    for i in range(len(terms)):
+        tmp = terms.iloc[i, :].tolist()
+        tmp = [x for x in tmp if len(x) > 1]
+        tmp = " AND ".join(tmp)
+        tmp = urlp.quote_plus(tmp)
+        urls.append(url_pre + tmp + url_suf)
+    terms['search_terms'] = urls
+    return terms
 
 
 def crawler(search_term, download_dir, sleep_time=1):
@@ -59,6 +68,24 @@ def crawler(search_term, download_dir, sleep_time=1):
         time.sleep(sleep_time)
         driver.close()
 
+        check = True
     except:
         print("Invalid URL")
+        check = False
+    return check
 
+
+def downloader(terms, download_dir):
+    for i in range(len(terms)):
+        search_term = terms.loc[i, 'search_terms']
+        t1 = terms.loc[i, 'term1']
+        t2 = terms.loc[i, 'term2']
+        print('Downloading {} AN {}'.format(t1, t2))
+        check = crawler(search_term=search_term, download_dir=download_dir)
+
+        if check:
+            latest_file(dir_path=download_dir, new_name=t1 + '_' + t2)
+        else:
+            print('There was no match for the terms')
+
+    return print('Download Completed')
