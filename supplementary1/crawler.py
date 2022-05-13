@@ -3,7 +3,7 @@ from viz import *
 
 new_dir = make_dir()
 dl_dir = os.getcwd() + '\\' + new_dir + '\\'
-terms = read_terms2('terms.csv')
+terms = read_terms('terms.csv')
 
 downloader(terms=terms, download_dir=dl_dir)
 
