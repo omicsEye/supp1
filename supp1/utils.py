@@ -88,7 +88,7 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, report_dir='.'):
     min_year = data.loc[:, 'year'].min()
     max_year = data.loc[:, 'year'].max()
     temp_0 = pd.DataFrame(range(min_year, max_year + 1), columns=['year'])
-    tech_list = list(data.loc[:, 'sub_term'])
+    tech_list = list(set(data.loc[:, 'sub_term']))
     tech_list.sort()
     colors = n_colors(len(tech_list), colormap=colormap, custom_palette=None)
     color_pal = {}
