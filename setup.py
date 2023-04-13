@@ -17,6 +17,7 @@ try:
         "Operating System :: Unix",
         "Operating System :: Microsoft :: Windows",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Topic :: Scientific/Engineering :: Bio-Informatics"
     ]
 except ImportError:
@@ -29,12 +30,12 @@ except ImportError:
         "Operating System :: MacOS",
         "Operating System :: Unix",
         "Operating System :: Microsoft :: Windows",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Topic :: Scientific/Engineering :: Bio-Informatics"
     ]
 
-VERSION = "1.1.1"
+VERSION = "1.0.1"
 AUTHOR = "Mahdi Baghbanzadeh"
 AUTHOR_EMAIL = "mbagh@gwu.edu"
 MAINTAINER = "Mahdi Baghbanzadeh"
@@ -44,30 +45,35 @@ MAINTAINER_EMAIL = "mbagh@gwu.edu"
 # this has been added since PyPI has turned off the download stats
 # this will be removed when PyPI Warehouse is production as it
 # will have download stats
-COUNTER_URL = "https://github.com/omicsEye/deepBreaks/blob/master/README.md"
+COUNTER_URL = "https://github.com/omicsEye/supp1/blob/master/README.md"
 counter_file = "README.md"
 if not os.path.isfile(counter_file):
-    print("Downloading counter file to track deepBreaks downloads" +
+    print("Downloading counter file to track supp1 downloads" +
           " since the global PyPI download stats are currently turned off.")
     try:
         pass  # file, headers = urlretrieve(COUNTER_URL,counter_file)
     except EnvironmentError:
         print("Unable to download counter")
 
+# read the contents of your README file
+from pathlib import Path
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
+
 with open('requirements.txt') as f:
     required = f.read().splitlines()
 
 setup(
-    name="deepBreaks",
+    name="supp1",
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
     version=VERSION,
     license="MIT",
-    description="deepBreaks: Prioritizing important regions of sequencing data for function prediction",
-    long_description="deepBreaks provides a generic method to identify important changes in association with the " + \
-                     "phenotype of interest using multi-alignment sequencing data from a population.",
-    url="http://github.com/omicsEye/deepBreaks",
-    keywords=['machine learning', 'genomics', 'sequencing data'],
+    description="supp1: creating a summary figure of PUBMED publications directions",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/omicsEye/supp1",
+    keywords=['data visualization', 'pubmed'],
     platforms=['Linux', 'MacOS', "Windows"],
     classifiers=classifiers,
     # long_description=open('readme.md').read(),
@@ -76,8 +82,8 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'deepBreaks = deepBreaks.deepBreaks:main'
+            'supp1 = supp1.supp1:main'
         ]},
-    test_suite='deepBreaks.tests.deepBreaks_test',
+    test_suite='supp1.tests.supp1_test',
     zip_safe=False
 )
