@@ -56,7 +56,7 @@ def get_from_pd(data, year, email, datetype='pdat', write=False, report_dir='.')
             df_main = tmp.copy()
         else:
             df_main = pd.concat([df_main, tmp], ignore_index=True)
-        print(tmp.head())
+        print(data.iloc[i, 2], 'done')
     if write:
         df_main.to_csv(report_dir+'/pubmed_data.csv', index=False)
     return df_main
