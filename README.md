@@ -11,7 +11,7 @@ Mahdi Baghbanzadeh, Daniel Kerchner, Ranojoy Chatterjee, Bahar Sayoldin, Ali Rah
 https://github.com/omicsEye/pubSight/.
 
 ---
-# supp1 user manual
+# pubSight user manual
 
 ## Contents ##
 * [pubSight](#pubsight)
@@ -20,12 +20,12 @@ https://github.com/omicsEye/pubSight/.
 * [Examples](#examples)
 * [Support](#support)
 ------------------------------------------------------------------------------------------------------------------------------
-# pubSight #
+## pubSight ##
 pubSight is a Python package that visualizes the number of publications in specific fields using PubMed records.
 It allows users to input a list of queries and make API calls to PubMed with Entrez to retrieve data.
 The retrieved data is then processed and visualized using Matplotlib.
 
-# Installation #
+## Installation ##
 To install pubSight, use pip:
 ```commandline
 pip install pubSight
