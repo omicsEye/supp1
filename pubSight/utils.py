@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import matplotlib.patches as mpatches
 import numpy as np
+import time
 
 
 def fetch(term, year, email, datetype='pdat'):
@@ -26,7 +27,8 @@ def fetch(term, year, email, datetype='pdat'):
 
 
 def read_terms(file_path, delimiter='\t'):
-    df = pd.read_table(file_path, delimiter=delimiter)
+    df = pd.read_table(file_path, delimiter=delimiter, header=0, encoding='unicode_escape')
+    print (df)
     return df
 
 
@@ -58,8 +60,9 @@ def get_from_pd(data, year, email, datetype='pdat', write=False, report_dir='.')
         else:
             df_main = pd.concat([df_main, tmp], ignore_index=True)
         print(data.iloc[i, 2], 'done')
+        time.sleep(2)
     if write:
-        df_main.to_csv(report_dir+'/pubmed_data.csv', index=False)
+        df_main.to_csv(report_dir+'/pubmed_data.tsv', sep='\t', index=False)
     return df_main
 
 
