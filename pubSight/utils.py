@@ -106,7 +106,7 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True
         data_key = mpatches.Patch(color=color_pal[key], label=key)
         patch_list.append(data_key)
 
-    fig = plt.figure(figsize=(7.2, (1.6 * num_rows / 2)))
+    fig = plt.figure(figsize=(7.2, (1.8 * num_rows / 2)))
     gs = GridSpec(num_rows, num_cols, wspace=0.0, hspace=0.0)
 
     cn = 0
@@ -151,7 +151,7 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True
             ax.set_xticklabels([])
         else:
             ax.yaxis.get_major_ticks()[0].label1.set_visible(False)
-            ax.set_xticks(ax.get_xticks()[::2])
+            ax.set_xticks(ax.get_xticks()[::5])
             ax.xaxis.label.set_visible(False)
             if i >= num_cols * (num_rows - 1):
                 ax.xaxis.get_major_ticks()[0].label1.set_visible(False)

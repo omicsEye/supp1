@@ -14,21 +14,12 @@ https://github.com/omicsEye/pubSight/.
 # supp1 user manual
 
 ## Contents ##
-* [Features](#features)
 * [pubSight](#pubsight)
 * [Installation](#installation)
 * [Getting Started with pubSight](#getting-started-with-pubsight)
 * [Examples](#examples)
-* [Support](#Support)
+* [Support](#support)
 ------------------------------------------------------------------------------------------------------------------------------
-# Features #
-1. ###
-2. ###
-3. ###
-4. User-friendly software
-5. Provides a predictive power of most discriminative positions in a sequencing data
-
-
 # pubSight #
 pubSight is a Python package that visualizes the number of publications in specific fields using PubMed records.
 It allows users to input a list of queries and make API calls to PubMed with Entrez to retrieve data.
@@ -72,6 +63,10 @@ uses the color palette `viridis`, and creates a group legend for the whole plot.
 
 ## Examples ##
 Here are some examples of visualizations created using pubSight:
+![alt text](https://github.com/omicsEye/pubSight/blob/main/img/Figure_2.png)
+![alt text](https://github.com/omicsEye/pubSight/blob/main/img/SFig1.png)
+![alt text](https://github.com/omicsEye/pubSight/blob/main/img/supp1.png)
+
 
 ### Support ###
 
