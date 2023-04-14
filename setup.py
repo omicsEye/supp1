@@ -45,10 +45,10 @@ MAINTAINER_EMAIL = "mbagh@gwu.edu"
 # this has been added since PyPI has turned off the download stats
 # this will be removed when PyPI Warehouse is production as it
 # will have download stats
-COUNTER_URL = "https://github.com/omicsEye/supp1/blob/master/README.md"
+COUNTER_URL = "https://github.com/omicsEye/pubSight/blob/master/README.md"
 counter_file = "README.md"
 if not os.path.isfile(counter_file):
-    print("Downloading counter file to track supp1 downloads" +
+    print("Downloading counter file to track pubSight downloads" +
           " since the global PyPI download stats are currently turned off.")
     try:
         pass  # file, headers = urlretrieve(COUNTER_URL,counter_file)
@@ -64,15 +64,15 @@ with open('requirements.txt') as f:
     required = f.read().splitlines()
 
 setup(
-    name="supp1",
+    name="pubSight",
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
     version=VERSION,
     license="MIT",
-    description="supp1: creating a summary figure of PUBMED publications directions",
+    description="pubSight: creating a summary figure of PUBMED publications directions",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/omicsEye/supp1",
+    url="https://github.com/omicsEye/pubSight",
     keywords=['data visualization', 'pubmed'],
     platforms=['Linux', 'MacOS', "Windows"],
     classifiers=classifiers,
@@ -82,8 +82,8 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'supp1 = supp1.supp1:main'
+            'pubSight = pubSight.pubSight:main'
         ]},
-    test_suite='supp1.tests.supp1_test',
+    test_suite='pubSight.tests.pubSight_test',
     zip_safe=False
 )

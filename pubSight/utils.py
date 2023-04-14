@@ -2,6 +2,7 @@ from Bio import Entrez
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
+import matplotlib.patches as mpatches
 import numpy as np
 
 
@@ -78,7 +79,12 @@ def n_colors(n, colormap='cividis', custom_palette=None):
         return [cmap(int(k * cmap_max / (n - 1))) for k in range(n)]
 
 
-def pubmed_plot(data, colormap='cividis', custom_palette=None, report_dir='.'):
+def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True, report_dir='.'):
+    if group_legend:
+        legend = False
+    else:
+        legend = True
+
     num_plots = len(set(data.loc[:, 'main_term']))
     num_cols = min(num_plots, 3)
     num_rows = (num_plots - 1) // num_cols + 1
@@ -90,18 +96,22 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, report_dir='.'):
     temp_0 = pd.DataFrame(range(min_year, max_year + 1), columns=['year'])
     tech_list = list(set(data.loc[:, 'sub_term']))
     tech_list.sort()
-    colors = n_colors(len(tech_list), colormap=colormap, custom_palette=None)
+    colors = n_colors(len(tech_list), colormap=colormap, custom_palette=custom_palette)
     color_pal = {}
     for n, tech in enumerate(tech_list):
         color_pal[tech] = colors[n]
 
-    fig = plt.figure(figsize=(7.2, (1.6 * 2 / num_rows)))
+    patch_list = []
+    for key in tech_list:
+        data_key = mpatches.Patch(color=color_pal[key], label=key)
+        patch_list.append(data_key)
+
+    fig = plt.figure(figsize=(7.2, (1.6 * num_rows / 2)))
     gs = GridSpec(num_rows, num_cols, wspace=0.0, hspace=0.0)
 
     cn = 0
     for i in range(num_plots):
-        print(cn)
-        print(name_list[cn])
+
         temp = data.loc[data.loc[:, 'main_term'] == name_list[cn], :]
         temp = pd.pivot_table(data=temp,
                               index=['year'],
@@ -117,7 +127,7 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, report_dir='.'):
 
         try:
             temp.plot(x='year', kind='bar', stacked=True,
-                      color=color_pal, ax=ax)
+                      color=color_pal, ax=ax, legend=legend)
         except:
             pass
 
@@ -129,7 +139,8 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, report_dir='.'):
         ax.spines['left'].set_linewidth(0.5)
         ax.spines['right'].set_linewidth(0.1)
         ax.spines['bottom'].set_linewidth(0.5)
-        ax.legend(loc='lower left', fontsize=5, ncol=1)
+        if legend:
+            ax.legend(loc='lower left', fontsize=5, ncol=1)
 
         if i % 3 == 1:
             ax.tick_params(axis="y", direction="in", pad=-15)
@@ -152,9 +163,16 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, report_dir='.'):
         ax.text(.5, .85, name_list[cn], transform=ax.transAxes, ha="center", weight='bold', size=7)
         cn += 1
 
-    fig.text(0.5, -0.03, 'Year', ha='center', fontsize=7, weight='bold')
-    fig.text(-0.01, 0.6, '# of publications', va='center', rotation='vertical', fontsize=7, weight='bold')
+    fig.text(0.5, -0.05, 'Year', ha='center', fontsize=7, weight='bold')
+    fig.text(-0.01, 0.6, 'Number of publications', va='center', rotation='vertical', fontsize=7, weight='bold')
     plt.tight_layout(pad=0.05)
+    if group_legend:
+        if num_plots % 3 == 0:
+            plt.legend(handles=patch_list, bbox_to_anchor=(1, -0.05),
+                       ncol=4, prop={'size': 6}, bbox_transform=fig.transFigure)
+        else:
+            plt.legend(handles=patch_list, bbox_to_anchor=(.7, .5),
+                       ncol=2, prop={'size': 6}, bbox_transform=fig.transFigure)
 
     fig.savefig(report_dir + "/pubmed_fig.pdf", dpi=600, bbox_inches="tight")
     fig.savefig(report_dir + "/pubmed_fig.png", dpi=600, bbox_inches="tight")
