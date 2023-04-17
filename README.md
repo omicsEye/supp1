@@ -28,14 +28,6 @@ The retrieved data is then processed and visualized using Matplotlib.
 
 ## Installation ##
 
-To install pubSight, use pip:
-```commandline
-pip install pubSight
-```
-or use github:
-```commandline
-python -m pip install git+https://github.com/omicsEye/pubSight
-```
 * First install *conda*  
 Go to the [Anaconda website](https://www.anaconda.com/) and download the latest version for your operating system.  
 * For Windows users: do not forget to add `conda` to your system `path`
@@ -52,16 +44,10 @@ if not, you must make *conda* available to your system for further steps.
 if you have problems adding conda to PATH, you can find instructions
 [here](https://docs.anaconda.com/anaconda/user-guide/faq/).  
 
-### Windows Linux Mac ###
-If you are using an **Apple M1/M2 MAC** please go to the [Apple M1/M2 MAC](#apple-m1m2-mac) for installation
-instructions.  
-If you have a working conda on your system, you can safely skip to step three.  
-If you are using windows, please make sure you have both git and Microsoft Visual C++ 14.0 or greater installed.
 install [git](https://gitforwindows.org/)
-[Microsoft C++ build tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
-In case you face issues with this step, [this link](https://github.com/pycaret/pycaret/issues/1254) may help you.
+
 1) Create a new conda environment (let's call it pubSight_env) with the following command:
-```
+```commandline
 conda create --name pubSight_env python=3.9
 ```
 2) Activate your conda environment:
@@ -77,46 +63,7 @@ or you can directly install if from GitHub:
 ```commandline
 python -m pip install git+https://github.com/omicsEye/pubSight
 ```
-### Apple M1/M2 MAC ###
-1) Update/install Xcode Command Line Tools
-  ```commandline
-  xcode-select --install
-  ```
-2) Install [Brew](https://brew.sh/index_fr)
-  ```commandline
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  ```
-3) Install libraries for brew
-  ```commandline
-  brew install cmake libomp
-  ```
-4) Install miniforge
-  ```commandline
-  brew install miniforge
-  ```
-5) Close the current terminal and open a new terminal
-6) Create a new conda environment (let's call it pubSight_env) with the following command:
-  ```commandline
-  conda create --name pubSight_env python=3.9
-  ```
-7) Activate the conda environment
-  ```commandline
-  conda activate pubSight_env
-  ```
-8) Install packages from Conda
-  ```commandline
-  conda install lightgbm
-  pip install xgboost
-  ```
-9) Finally, install *pubSight*:
-install with pip:
-```commandline
-pip install pubSight
-```
-or you can directly install if from GitHub:
-```commandline
-python -m pip install git+https://github.com/omicsEye/pubSight
-```
+
 -----------------------------------------------------------------------------------------------------------------------
 
 ## Getting Started with pubSight ##
