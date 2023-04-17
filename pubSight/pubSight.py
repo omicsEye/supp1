@@ -24,6 +24,8 @@ def parse_arguments():
                         required=False)
 
     return parser.parse_args()
+
+
 def check_requirements(args):
     """
     Check requirements (file format, dependencies, permissions)
