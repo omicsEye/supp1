@@ -11,8 +11,8 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', '-i', help="path to file that has all the query terms",
                         type=str, required=False)
-    parser.add_argument('--email', '-e', help="a valid email address",
-                        type=str, required=True)
+    parser.add_argument('--email', '-e', help="a valid email address, only if you want to query pubmed",
+                        type=str, required=False)
     parser.add_argument('--out_dir', '-o', help="path to report directory",
                         type=str, required=True)
     parser.add_argument('--color_palette', '-c', help="matplotlib color palette",
@@ -66,7 +66,7 @@ def main():
         df_main = get_from_pd(data=df, year=2023, email=args.email, write=True, report_dir=args.out_dir)
 
     pubmed_plot(data=df_main, colormap=args.color_palette, group_legend=args.group_legend, report_dir=args.out_dir)
-    return print('done!')
+    return print('Done!')
 
 
 # main()

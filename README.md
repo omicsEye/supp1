@@ -55,7 +55,7 @@ conda create --name pubSight_env python=3.9
 conda activate pubSight_env 
 ```
 3) Install *pubSight*:
-install with pip:
+install with pip (NOT AVAILABLE NOW, please use the next option):
 ```commandline
 pip install pubSight
 ```
