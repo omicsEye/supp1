@@ -58,7 +58,8 @@ def get_year_data(search_query, year, email, datetype='pdat'):
         print("Timeout Error:", errt)
     except requests.exceptions.RequestException as err:
         print("OOps: Something Else", err)
-    return pd.DataFrame(zip(years, count), columns=['year', 'count'])
+    df = pd.DataFrame(zip(years, count), columns=['year', 'count'])
+    return df.loc[df.loc[:, 'count'] > 0, :]
 
 
 def get_from_pd(data, year, email, datetype='pdat', write=False, report_dir='.'):
