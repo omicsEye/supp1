@@ -5,6 +5,7 @@ from matplotlib.gridspec import GridSpec
 import matplotlib.patches as mpatches
 import numpy as np
 import time
+import requests
 
 
 def fetch(term, year, email, datetype='pdat'):
@@ -36,17 +37,27 @@ def get_year_data(search_query, year, email, datetype='pdat'):
     years = []
     count = []
     cn = 0
-    while cn < 3:
+    email_addition = 0
+    try:
+        while cn < 3:
+            email_addition += 1
+            pub_count = fetch(term=search_query, year=year, email=str(email_addition)+email, datetype=datetype)
+            years.append(year)
+            count.append(int(pub_count))
 
-        pub_count = fetch(term=search_query, year=year, email=email, datetype=datetype)
-        years.append(year)
-        count.append(int(pub_count))
-
-        if int(pub_count) == 0:
-            cn += 1
-        else:
-            cn = 0
-        year -= 1
+            if int(pub_count) == 0:
+                cn += 1
+            else:
+                cn = 0
+            year -= 1
+    except requests.exceptions.HTTPError as errh:
+        print("Http Error:", errh)
+    except requests.exceptions.ConnectionError as errc:
+        print("Error Connecting:", errc)
+    except requests.exceptions.Timeout as errt:
+        print("Timeout Error:", errt)
+    except requests.exceptions.RequestException as err:
+        print("OOps: Something Else", err)
     return pd.DataFrame(zip(years, count), columns=['year', 'count'])
 
 
@@ -109,7 +120,7 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True
         data_key = mpatches.Patch(color=color_pal[key], label=key)
         patch_list.append(data_key)
 
-    fig = plt.figure(figsize=(7.2, (1.8 * num_rows / 2)))
+    fig = plt.figure(figsize=(7.2, (1.25 * num_rows / 2)))
     gs = GridSpec(num_rows, num_cols, wspace=0.0, hspace=0.0)
 
     cn = 0
@@ -138,6 +149,10 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True
         ymin, ymax = ax.get_ylim()
         ax.set_yticks(np.round(np.linspace(ymin, ymax, 5), 0))
         ax.xaxis.set_tick_params(labelsize=6)
+        start, end = ax.get_xlim()
+        #ax.xaxis.set_ticks(np.arange(start, end, .25))
+        diff_years = int(end -start)
+        ax.set_xticks(np.round(np.linspace(start, end, diff_years*10), 0))
         ax.spines['top'].set_linewidth(0.1)
         ax.spines['left'].set_linewidth(0.5)
         ax.spines['right'].set_linewidth(0.1)
