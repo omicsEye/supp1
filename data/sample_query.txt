@@ -1,0 +1,16 @@
+main_term	sub_term	query
+Adiposity	GC-MS	Adiposity AND GC-MS
+Adiposity	LC-MS	Adiposity AND LC-MS
+Adiposity	NMR	Adiposity AND NMR
+Alzheimer's disease	GC-MS	Alzheimer's disease AND GC-MS
+Alzheimer's disease	LC-MS	Alzheimer's disease AND LC-MS
+Alzheimer's disease	NMR	Alzheimer's disease AND NMR
+COVID-19	GC-MS	COVID-19 AND GC-MS
+COVID-19	LC-MS	COVID-19 AND LC-MS
+COVID-19	NMR	COVID-19 AND NMR
+Cancer	GC-MS	Cancer AND GC-MS
+Cancer	LC-MS	Cancer AND LC-MS
+Cancer	NMR	Cancer AND NMR
+Cardiovascular	GC-MS	Cardiovascular AND GC-MS
+Cardiovascular	LC-MS	Cardiovascular AND LC-MS
+Cardiovascular	NMR	Cardiovascular AND NMR
