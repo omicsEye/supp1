@@ -3,4 +3,5 @@ matplotlib>=3.7.1
 numpy>=1.24.2
 pandas>=2.0.0
 seaborn>=0.12.2
+requests>=2.2
 
