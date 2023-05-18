@@ -67,6 +67,7 @@ def main():
         if api_key is  None:
             print('Consider providing a valid email and api_key \
             to speed up fetch NCBI data and avoid Too Many Requests error.')
+            print('How to get an api_key: https://support.nlm.nih.gov/knowledgebase/article/KA-05317/en-us')
         df = read_terms(args.input, delimiter='\t')
         df_main = get_from_pd(data=df, year=2023, email=args.email, api_key=args.api_key, write=True, report_dir=args.out_dir)
 
