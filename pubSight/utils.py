@@ -8,7 +8,7 @@ import time
 import requests
 
 
-def fetch(term, year, email, datetype='pdat'):
+def fetch(term, year, email, api_key, datetype='pdat'):
     """
     :param term: str, search query
     :param year: int, year of publication in YYYY format
@@ -19,7 +19,11 @@ def fetch(term, year, email, datetype='pdat'):
     :return: count of pubication in pubmed
     """
     # Set the email address to identify yourself to the NCBI server
-    Entrez.email = email
+    if email:
+        Entrez.email = email
+    if api_key is not None:
+        Entrez.api_key = api_key
+        Entrez.sleep_between_tries = 5
     handle = Entrez.esearch(db="pubmed", term=term, retmax=0,
                             rettype='count', mindate=year,
                             maxdate=year, datetype=datetype)
@@ -33,7 +37,7 @@ def read_terms(file_path, delimiter='\t'):
     return df
 
 
-def get_year_data(search_query, year, email, datetype='pdat'):
+def get_year_data(search_query, year, email, api_key, datetype='pdat'):
     years = []
     count = []
     cn = 0
@@ -62,9 +66,9 @@ def get_year_data(search_query, year, email, datetype='pdat'):
     return df.loc[df.loc[:, 'count'] > 0, :]
 
 
-def get_from_pd(data, year, email, datetype='pdat', write=False, report_dir='.'):
+def get_from_pd(data, year, email, api_key, datetype='pdat', write=False, report_dir='.'):
     for i in range(data.shape[0]):
-        tmp = get_year_data(search_query=data.iloc[i, 2], year=year, email=email, datetype=datetype)
+        tmp = get_year_data(search_query=data.iloc[i, 2], year=year, email=email, api_key=api_key, datetype=datetype)
         tmp.loc[:, 'main_term'] = data.iloc[i, 0]
         tmp.loc[:, 'sub_term'] = data.iloc[i, 1]
         if i == 0:

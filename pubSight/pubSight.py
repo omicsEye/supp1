@@ -13,6 +13,8 @@ def parse_arguments():
                         type=str, required=False)
     parser.add_argument('--email', '-e', help="a valid email address, only if you want to query pubmed",
                         type=str, required=False)
+    parser.add_argument('--api_key', '-k', help="a valid NCBI api key if you want to query pubmed",
+                        type=str, required=False)
     parser.add_argument('--out_dir', '-o', help="path to report directory",
                         type=str, required=True)
     parser.add_argument('--color_palette', '-c', help="matplotlib color palette",
@@ -62,8 +64,11 @@ def main():
         print(df_main)
     else:
         print('Fetching data from pubmed')
+        if api_key is  None:
+            print('Consider providing a valid email and api_key \
+            to speed up fetch NCBI data and avoid Too Many Requests error.')
         df = read_terms(args.input, delimiter='\t')
-        df_main = get_from_pd(data=df, year=2023, email=args.email, write=True, report_dir=args.out_dir)
+        df_main = get_from_pd(data=df, year=2023, email=args.email, api_key=args.api_key, write=True, report_dir=args.out_dir)
 
     pubmed_plot(data=df_main, colormap=args.color_palette, group_legend=args.group_legend, report_dir=args.out_dir)
     return print('Done!')
