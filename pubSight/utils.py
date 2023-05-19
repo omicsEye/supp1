@@ -24,6 +24,8 @@ def fetch(term, year, email, api_key, datetype='pdat'):
     if api_key is not None:
         Entrez.api_key = api_key
         Entrez.sleep_between_tries = 5
+    else:
+        Entrez.sleep_between_tries = 15
     handle = Entrez.esearch(db="pubmed", term=term, retmax=0,
                             rettype='count', mindate=year,
                             maxdate=year, datetype=datetype)
@@ -41,11 +43,9 @@ def get_year_data(search_query, year, email, api_key, datetype='pdat'):
     years = []
     count = []
     cn = 0
-    #email_addition = 0
     try:
         while cn < 3:
-            #email_addition += 1
-            pub_count = fetch(term=search_query, year=year, email=email, api_key=api_key, datetype=datetype) #str(email_addition)+
+            pub_count = fetch(term=search_query, year=year, email=email, api_key=api_key, datetype=datetype)
             years.append(year)
             count.append(int(pub_count))
 
