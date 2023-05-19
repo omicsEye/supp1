@@ -41,11 +41,11 @@ def get_year_data(search_query, year, email, api_key, datetype='pdat'):
     years = []
     count = []
     cn = 0
-    email_addition = 0
+    #email_addition = 0
     try:
         while cn < 3:
-            email_addition += 1
-            pub_count = fetch(term=search_query, year=year, email=str(email_addition)+email, datetype=datetype)
+            #email_addition += 1
+            pub_count = fetch(term=search_query, year=year, email=email, api_key=api_key, datetype=datetype) #str(email_addition)+
             years.append(year)
             count.append(int(pub_count))
 

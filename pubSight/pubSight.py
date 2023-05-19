@@ -64,7 +64,7 @@ def main():
         print(df_main)
     else:
         print('Fetching data from pubmed')
-        if api_key is  None:
+        if args.api_key is  None:
             print('Consider providing a valid email and api_key \
             to speed up fetch NCBI data and avoid Too Many Requests error.')
             print('How to get an api_key: https://support.nlm.nih.gov/knowledgebase/article/KA-05317/en-us')
