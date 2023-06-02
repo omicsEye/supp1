@@ -6,7 +6,7 @@
 **Citation:**
 
 
-Mahdi Baghbanzadeh, Daniel Kerchner, Ranojoy Chatterjee, Bahar Sayoldin, Ali Rahnavard (2023+).
+Mahdi Baghbanzadeh, Bahar Sayoldin, Ali Rahnavard (2023+).
 **pubSight: creating a summary figure of publications in PUBMED database for literature direction**,
 https://github.com/omicsEye/pubSight/.
 
