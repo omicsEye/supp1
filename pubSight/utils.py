@@ -107,14 +107,21 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True
     num_plots = len(set(data.loc[:, 'main_term']))
     num_cols = min(num_plots, 3)
     num_rows = (num_plots - 1) // num_cols + 1
-    name_list = list(set(data.loc[:, 'main_term']))
-    name_list.sort()
-
+    name_col = list(data.loc[:, 'main_term'])
+    #name_list.sort()
+    name_list = []
+    for elem in name_col:
+        if elem not in name_list:
+            name_list.append(elem)
     min_year = data.loc[:, 'year'].min()
     max_year = data.loc[:, 'year'].max()
     temp_0 = pd.DataFrame(range(min_year, max_year + 1), columns=['year'])
-    tech_list = list(set(data.loc[:, 'sub_term']))
-    tech_list.sort()
+    tech_col = list(data.loc[:, 'sub_term'])
+    tech_list = []
+    for elem in tech_col:
+        if elem not in tech_list:
+            tech_list.append(elem)
+    #tech_list.sort()
     colors = n_colors(len(tech_list), colormap=colormap, custom_palette=custom_palette)
     color_pal = {}
     for n, tech in enumerate(tech_list):
