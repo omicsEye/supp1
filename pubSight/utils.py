@@ -69,8 +69,11 @@ def get_year_data(search_query, year, email, api_key, datetype='pdat'):
 def get_from_pd(data, year, email, api_key, datetype='pdat', write=False, report_dir='.'):
     for i in range(data.shape[0]):
         tmp = get_year_data(search_query=data.iloc[i, 2], year=year, email=email, api_key=api_key, datetype=datetype)
-        tmp.loc[:, 'main_term'] = data.iloc[i, 0]
-        tmp.loc[:, 'sub_term'] = data.iloc[i, 1]
+        try:
+            tmp.loc[:, 'main_term'] = data.iloc[i, 0]
+            tmp.loc[:, 'sub_term'] = data.iloc[i, 1]
+        except:
+            pass
         if i == 0:
             df_main = tmp.copy()
         else:
