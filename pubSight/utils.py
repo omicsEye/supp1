@@ -3,6 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import matplotlib.patches as mpatches
+import matplotlib.ticker as ticker
+from matplotlib.ticker import MultipleLocator, MaxNLocator
 import numpy as np
 import time
 import requests
@@ -165,7 +167,17 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True
         ax.set_yticks(np.round(np.linspace(ymin, ymax, 5), 0))
         ax.xaxis.set_tick_params(labelsize=6)
         start, end = ax.get_xlim()
-        #ax.xaxis.set_ticks(np.arange(start, end, .25))
+        start_y, end_y = ax.get_ylim()
+        #ax.yaxis.set_major_formatter(ticker.ScalarFormatter())
+        locator = MultipleLocator(base=10)
+        if end_y > 1000:
+            locator = MultipleLocator(base=100)
+        if end_y > 10000:
+            locator = MultipleLocator(base=1000)
+        ax.yaxis.set_major_locator(locator)
+        max_n_locator = MaxNLocator(nbins=5)
+        ax.yaxis.set_major_locator(max_n_locator)
+
         diff_years = int(end -start)
         ax.set_xticks(np.round(np.linspace(start, end, diff_years*10), 0))
         ax.spines['top'].set_linewidth(0.1)
