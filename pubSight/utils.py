@@ -113,7 +113,7 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True
     num_cols = min(num_plots, 3)
     num_rows = (num_plots - 1) // num_cols + 1
     name_col = list(data.loc[:, 'main_term'])
-    #name_list.sort()
+    
     name_list = []
     for elem in name_col:
         if elem not in name_list:
@@ -126,7 +126,7 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True
     for elem in tech_col:
         if elem not in tech_list:
             tech_list.append(elem)
-    #tech_list.sort()
+    
     colors = n_colors(len(tech_list), colormap=colormap, custom_palette=custom_palette)
     color_pal = {}
     for n, tech in enumerate(tech_list):
@@ -137,7 +137,7 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True
         data_key = mpatches.Patch(color=color_pal[key], label=key)
         patch_list.append(data_key)
 
-    fig = plt.figure(figsize=(7.2, (1.25 * num_rows / 2)))
+    fig = plt.figure(figsize=(7.2, max(1.25, (1.25 * num_rows / 2))))
     gs = GridSpec(num_rows, num_cols, wspace=0.0, hspace=0.0)
 
     cn = 0
@@ -166,9 +166,9 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True
         ymin, ymax = ax.get_ylim()
         ax.set_yticks(np.round(np.linspace(ymin, ymax, 5), 0))
         ax.xaxis.set_tick_params(labelsize=6)
-        start, end = ax.get_xlim()
+        
         start_y, end_y = ax.get_ylim()
-        #ax.yaxis.set_major_formatter(ticker.ScalarFormatter())
+       
         locator = MultipleLocator(base=10)
         if end_y > 1000:
             locator = MultipleLocator(base=100)
@@ -177,13 +177,16 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True
         ax.yaxis.set_major_locator(locator)
         max_n_locator = MaxNLocator(nbins=5)
         ax.yaxis.set_major_locator(max_n_locator)
-
-        diff_years = int(end -start)
-        ax.set_xticks(np.round(np.linspace(start, end, diff_years*10), 0))
+        
         ax.spines['top'].set_linewidth(0.1)
         ax.spines['left'].set_linewidth(0.5)
         ax.spines['right'].set_linewidth(0.1)
         ax.spines['bottom'].set_linewidth(0.5)
+
+        labels = [item.get_text() for item in ax.get_xticklabels()]
+        ax.set_xticklabels(labels)
+        ax.set_xticks(ax.get_xticks()[::3])
+        
         if legend:
             ax.legend(loc='lower left', fontsize=5, ncol=1)
 
@@ -193,14 +196,15 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True
             ax.yaxis.tick_right()
         if i < num_cols:
             ax.yaxis.get_major_ticks()[0].label1.set_visible(False)
-            ax.set_xticklabels([])
+            if num_rows != 1:
+                ax.set_xticklabels([])
         else:
             ax.yaxis.get_major_ticks()[0].label1.set_visible(False)
-            ax.set_xticks(ax.get_xticks()[::5])
-            ax.xaxis.label.set_visible(False)
-            if i >= num_cols * (num_rows - 1):
-                ax.xaxis.get_major_ticks()[0].label1.set_visible(False)
-                ax.tick_params(axis="x", direction="out", pad=1)
+            if num_rows != 1:
+                ax.xaxis.label.set_visible(False)
+                if i >= num_cols * (num_rows - 1):
+                    ax.xaxis.get_major_ticks()[0].label1.set_visible(False)
+                    ax.tick_params(axis="x", direction="out", pad=1)
 
         ax.xaxis.set_tick_params(labelsize=6)
         ax.yaxis.set_tick_params(labelsize=6)
