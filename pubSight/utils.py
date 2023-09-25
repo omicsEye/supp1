@@ -46,15 +46,16 @@ def get_year_data(search_query, year, email, api_key, datetype='pdat'):
     count = []
     cn = 0
     try:
-        while cn < 3:
+        while cn < 5:
             pub_count = fetch(term=search_query, year=year, email=email, api_key=api_key, datetype=datetype)
             years.append(year)
             count.append(int(pub_count))
 
-            if int(pub_count) == 0:
-                cn += 1
-            else:
-                cn = 0
+            if year < 2000:
+                if int(pub_count) == 0:
+                    cn += 1
+                else:
+                    cn = 0
             year -= 1
     except requests.exceptions.HTTPError as errh:
         print("Http Error:", errh)
