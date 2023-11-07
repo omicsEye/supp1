@@ -13,7 +13,7 @@ def parse_arguments():
                         type=str, required=False)
     parser.add_argument('--email', '-e', help="a valid email address, only if you want to query pubmed",
                         type=str, required=False)
-    parser.add_argument('--api_key', '-k', help="a valid NCBI api key if you want to query pubmed",
+    parser.add_argument('--api_key', '-k', help="a valid NCBI api key if you want to query pubmed.\ How to get an api_key: https://support.nlm.nih.gov/knowledgebase/article/KA-05317/en-us",
                         type=str, required=False)
     parser.add_argument('--out_dir', '-o', help="path to report directory",
                         type=str, required=True)

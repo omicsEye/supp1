@@ -137,8 +137,10 @@ def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True
     for key in tech_list:
         data_key = mpatches.Patch(color=color_pal[key], label=key)
         patch_list.append(data_key)
-
-    fig = plt.figure(figsize=(7.2, max(1.25, (1.25 * num_rows / 2))))
+    if num_cols < 3:
+        fig = plt.figure(figsize=(3.6, max(1.25, (1.25 * num_rows / 2))))
+    else:
+        fig = plt.figure(figsize=(7.2, max(1.25, (1.25 * num_rows / 2))))
     gs = GridSpec(num_rows, num_cols, wspace=0.0, hspace=0.0)
 
     cn = 0
