@@ -193,9 +193,9 @@ def pubmed_plot(data, user_num_cols=3, colormap='cividis', custom_palette=None, 
         if legend:
             ax.legend(loc='lower left', fontsize=5, ncol=1)
 
-        if i % num_cols == 1:
+        if i % num_cols >= 1:
             ax.tick_params(axis="y", direction="in", pad=-15)
-        if i % num_cols == 2:
+        if i % num_cols == num_cols-1:
             ax.yaxis.tick_right()
         if i < num_cols:
             ax.yaxis.get_major_ticks()[0].label1.set_visible(False)
