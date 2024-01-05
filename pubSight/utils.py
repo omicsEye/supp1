@@ -102,7 +102,9 @@ def n_colors(n, colormap='cividis', custom_palette=None):
         seed(1)
         cmap = plt.get_cmap(colormap)
         cmap_max = cmap.N
-        return [cmap(int(k * cmap_max / (n - 1))) for k in  shuffle([i for i in range(n)])]
+        seq = [i for i in range(n)]
+        shuffle(seq)
+        return [cmap(int(k * cmap_max / (n - 1))) for k in seq]
 
 def pubmed_plot(data, user_num_cols=3, colormap='cividis', custom_palette=None, group_legend=True, report_dir='.'):
     if group_legend:
