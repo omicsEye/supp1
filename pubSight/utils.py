@@ -9,7 +9,6 @@ import numpy as np
 import time
 import requests
 
-
 def fetch(term, year, email, api_key, datetype='pdat'):
     """
     :param term: str, search query
@@ -101,8 +100,7 @@ def n_colors(n, colormap='cividis', custom_palette=None):
     else:
         cmap = plt.get_cmap(colormap)
         cmap_max = cmap.N
-        return [cmap(int(k * cmap_max / (n - 1))) for k in range(n)]
-
+        return [cmap(int(k * cmap_max / (n - 1))) for k in  shuffle([i for i in range(n)])]
 
 def pubmed_plot(data, user_num_cols=3, colormap='cividis', custom_palette=None, group_legend=True, report_dir='.'):
     if group_legend:
