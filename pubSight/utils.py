@@ -8,6 +8,7 @@ from matplotlib.ticker import MultipleLocator, MaxNLocator
 import numpy as np
 import time
 import requests
+from random import shuffle,seed
 
 def fetch(term, year, email, api_key, datetype='pdat'):
     """
