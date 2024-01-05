@@ -21,6 +21,8 @@ def parse_arguments():
                         type=str, required=False, default='cividis')
     parser.add_argument('--group_legend', '-g', help="make a group legend for whole plot",
                         action='store_true', default=False)
+    parser.add_argument('--num_col', '-n', help="number of columns ion grid plot",
+                        type=numeric, required=False, default=3)
     parser.add_argument('--pubmed_data', '-p', help="path to a tab delimited dataframe that has four columns"
                                                     " ['year', 'count', 'main_term', 'sub_term']", type=str,
                         required=False)
@@ -65,13 +67,13 @@ def main():
     else:
         print('Fetching data from pubmed')
         if args.api_key is  None:
-            print('Consider providing a valid email and api_key \
+            print('\n\n################\nConsider providing a valid email and api_key \
             to speed up fetch NCBI data and avoid Too Many Requests error.')
-            print('How to get an api_key: https://support.nlm.nih.gov/knowledgebase/article/KA-05317/en-us')
+            print('How to get an api_key: https://support.nlm.nih.gov/knowledgebase/article/KA-05317/en-us\n\n################\n')
         df = read_terms(args.input, delimiter='\t')
         df_main = get_from_pd(data=df, year=2023, email=args.email, api_key=args.api_key, write=True, report_dir=args.out_dir)
 
-    pubmed_plot(data=df_main, colormap=args.color_palette, group_legend=args.group_legend, report_dir=args.out_dir)
+    pubmed_plot(data=df_main, user_num_cols=args.num_col, colormap=args.color_palette, group_legend=args.group_legend, report_dir=args.out_dir)
     return print('Done!')
 
 

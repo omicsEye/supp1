@@ -103,14 +103,14 @@ def n_colors(n, colormap='cividis', custom_palette=None):
         return [cmap(int(k * cmap_max / (n - 1))) for k in range(n)]
 
 
-def pubmed_plot(data, colormap='cividis', custom_palette=None, group_legend=True, report_dir='.'):
+def pubmed_plot(data, user_num_cols=3, colormap='cividis', custom_palette=None, group_legend=True, report_dir='.'):
     if group_legend:
         legend = False
     else:
         legend = True
 
     num_plots = len(set(data.loc[:, 'main_term']))
-    num_cols = min(num_plots, 3)
+    num_cols = min(num_plots, max(3,user_num_cols))
     num_rows = (num_plots - 1) // num_cols + 1
     name_col = list(data.loc[:, 'main_term'])
     #name_list.sort()
