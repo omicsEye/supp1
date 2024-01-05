@@ -21,8 +21,8 @@ def parse_arguments():
                         type=str, required=False, default='cividis')
     parser.add_argument('--group_legend', '-g', help="make a group legend for whole plot",
                         action='store_true', default=False)
-    parser.add_argument('--num_col', '-n', help="number of columns ion grid plot",
-                        type=numeric, required=False, default=3)
+    parser.add_argument('--num_col', '-n', help="number of columns in grid plot",
+                        type=int, required=False, default=3)
     parser.add_argument('--pubmed_data', '-p', help="path to a tab delimited dataframe that has four columns"
                                                     " ['year', 'count', 'main_term', 'sub_term']", type=str,
                         required=False)
