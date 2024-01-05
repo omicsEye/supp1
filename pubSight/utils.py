@@ -193,9 +193,9 @@ def pubmed_plot(data, user_num_cols=3, colormap='cividis', custom_palette=None, 
         if legend:
             ax.legend(loc='lower left', fontsize=5, ncol=1)
 
-        if i % 3 == 1:
+        if i % num_cols == 1:
             ax.tick_params(axis="y", direction="in", pad=-15)
-        if i % 3 == 2:
+        if i % num_cols == 2:
             ax.yaxis.tick_right()
         if i < num_cols:
             ax.yaxis.get_major_ticks()[0].label1.set_visible(False)
@@ -219,7 +219,7 @@ def pubmed_plot(data, user_num_cols=3, colormap='cividis', custom_palette=None, 
     fig.text(-0.01, 0.6, 'Number of publications', va='center', rotation='vertical', fontsize=7, weight='bold')
     plt.tight_layout(pad=0.05)
     if group_legend:
-        if num_plots % 3 == 0:
+        if num_plots % num_cols == 0:
             plt.legend(handles=patch_list, bbox_to_anchor=(1, -0.05),
                        ncol=4, prop={'size': 6}, bbox_transform=fig.transFigure)
         else:
