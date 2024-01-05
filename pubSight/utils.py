@@ -99,6 +99,7 @@ def n_colors(n, colormap='cividis', custom_palette=None):
     if custom_palette is not None:
         return custom_palette[:n]
     else:
+        seed(1)
         cmap = plt.get_cmap(colormap)
         cmap_max = cmap.N
         return [cmap(int(k * cmap_max / (n - 1))) for k in  shuffle([i for i in range(n)])]
