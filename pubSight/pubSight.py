@@ -54,7 +54,8 @@ def main():
     # Parse arguments from command line
     warnings.filterwarnings("ignore")
     warnings.simplefilter('ignore')
-
+    now =datetime.datetime.now()
+    year = now.year
     args = parse_arguments()
 
     print(args)  # printing Namespace
@@ -71,7 +72,7 @@ def main():
             to speed up fetch NCBI data and avoid Too Many Requests error.')
             print('How to get an api_key: https://support.nlm.nih.gov/knowledgebase/article/KA-05317/en-us\n\n################\n')
         df = read_terms(args.input, delimiter='\t')
-        df_main = get_from_pd(data=df, year=2023, email=args.email, api_key=args.api_key, write=True, report_dir=args.out_dir)
+        df_main = get_from_pd(data=df, year=year, email=args.email, api_key=args.api_key, write=True, report_dir=args.out_dir)
 
     pubmed_plot(data=df_main, user_num_cols=args.num_col, colormap=args.color_palette, group_legend=args.group_legend, report_dir=args.out_dir)
     return print('Done!')
